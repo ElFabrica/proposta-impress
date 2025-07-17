@@ -8,6 +8,8 @@ import {
   renderToStream,
   Image,
 } from "@react-pdf/renderer";
+import { PropostaResponse } from "@/app/types/response-proposta-type";
+import { text } from "stream/consumers";
 
 // Create styles
 {
@@ -137,7 +139,11 @@ type produto = {
 
 // Create Document Component
 
-const MyDocument = () => (
+type MyDocumentProps = {
+  document: PropostaResponse;
+};
+
+const MyDocument = ({ document }: MyDocumentProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={{ gap: 4 }} fixed={true}>
@@ -150,20 +156,23 @@ const MyDocument = () => (
       </View>
       <View style={{ marginVertical: 24, alignItems: "center", gap: 4 }}>
         <Text style={{ marginVertical: 24, fontWeight: "600" }}>
-          Proposta "NOME DA PROPOSTA"
+          {document.proposta.title}
         </Text>
-        {products.map((item, index) => (
-          <View key={index} style={styles.productSection} wrap={false}>
-            <Text style={styles.title}>
+        {document.produtos.map((item, index) => (
+          <View key={index} style={styles.productSection}>
+            <Text style={styles.title} wrap={false}>
               {" "}
-              {index + 1} {item.name}{" "}
+              {index + 1} {item.nome_produto_proposta}{" "}
             </Text>
 
             <Text style={{ fontSize: 10, color: "#5E5E5E", fontWeight: "700" }}>
               DESCRIÇÃO
             </Text>
 
-            <Text style={styles.description}> {item.description} </Text>
+            <Text style={styles.description}>
+              {" "}
+              {item.descricao_produto_proposta}{" "}
+            </Text>
             <View
               style={{
                 alignItems: "flex-end",
@@ -179,7 +188,10 @@ const MyDocument = () => (
               >
                 VALOR UNITÁRIO
               </Text>
-              <Text style={styles.title}> R$ {item.unit_price} </Text>
+              <Text style={styles.title}>
+                {" "}
+                R$ {item.valor_produto_proposta}{" "}
+              </Text>
             </View>
           </View>
         ))}
@@ -218,11 +230,8 @@ const MyDocument = () => (
   </Document>
 );
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = request.nextUrl.pathname.split("/").pop(); // extrai o ID da URL
+export async function GET(request: NextRequest) {
+  const id = request.nextUrl.pathname.split("/").pop();
 
   const response = await fetch(
     "https://nasago.bubbleapps.io/version-test/api/1.1/wf/proposta",
@@ -237,11 +246,14 @@ export async function GET(
     }
   );
 
-  const data = await response.json();
+  const raw = await response.json();
 
-  console.dir(data, { depth: null });
+  if (raw?.status === "success" && raw.response) {
+    const documentData = raw.response as PropostaResponse;
 
-  const stream = await renderToStream(<MyDocument />);
+    const stream = await renderToStream(<MyDocument document={documentData} />);
+    return new NextResponse(stream as unknown as ReadableStream);
+  }
 
-  return new NextResponse(stream as unknown as ReadableStream);
+  return new NextResponse("Erro ao gerar proposta", { status: 500 });
 }
