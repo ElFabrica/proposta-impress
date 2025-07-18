@@ -8,13 +8,13 @@ import {
   renderToStream,
   Image,
 } from "@react-pdf/renderer";
-import { PropostaResponse } from "@/app/types/response-proposta-type";
+import { PropostaResponse } from "../types/response-proposta-type";
 import { text } from "stream/consumers";
-import { Card } from "@/app/components/Card";
-import { Header } from "@/app/components/Header";
+import { Card } from "../components/card";
+import { Header } from "../components/Header";
 
 import { styles } from "./styles";
-import { Footer } from "@/app/components/Footer";
+import { Footer } from "../components/Footer";
 
 // Create Document Component
 

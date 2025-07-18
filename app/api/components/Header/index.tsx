@@ -1,4 +1,4 @@
-import { PropostaResponse, Produto } from "@/app/types/response-proposta-type";
+import { PropostaResponse, Produto } from "../../types/response-proposta-type";
 import { styles } from "./styles";
 import {
     Text,

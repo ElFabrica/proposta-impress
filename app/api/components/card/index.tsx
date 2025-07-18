@@ -1,5 +1,5 @@
-import { PropostaResponse, Produto } from "@/app/types/response-proposta-type";
-import { styles } from "../Card/styles";
+import { PropostaResponse, Produto } from "../../types/response-proposta-type";
+import { styles } from "./styles";
 import {
   Page,
   Text,
