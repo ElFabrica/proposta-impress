@@ -8,11 +8,14 @@ export const styles = StyleSheet.create({
         borderColor: "#AAAAAA",
         borderWidth: 1,
         borderRadius: 10,
-        gap: 20
+        gap: 20,
+        backgroundColor:"#F6F6F6",
+        width: "100%"
     },
     title: {
         fontSize: 16,
         color: "#333333",
+        fontWeight:"600"
 
     },
     subtitles: {
@@ -27,7 +30,7 @@ export const styles = StyleSheet.create({
         height: "auto",
         paddingHorizontal: 16,
         paddingVertical: 16,
-        backgroundColor: "#F6F6F6",
+        backgroundColor: "#EEEEEE",
         borderRadius: 8
     },
     desctiption: {
@@ -36,13 +39,20 @@ export const styles = StyleSheet.create({
     },
     footer: {
         flexDirection: "row",
-        width: "100%"
+        width: "100%",
+        alignItems: "flex-end",
+        justifyContent: "flex-end"
     },
     containerFooter: {
         borderWidth: 1,
-        borderColor: "#33333"
+        borderColor: "#33333",
+        borderRadius: 5,
+        padding:5
 
-    },
+    },valUnit:{
+            fontSize: 12
+        },
+    
     total: {
         fontSize: 14,
         color: "#333333",

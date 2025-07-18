@@ -1,5 +1,5 @@
 import { PropostaResponse, Produto } from "@/app/types/response-proposta-type";
-import { styles } from "./styles";
+import { styles } from "../Card/styles";
 import {
   Page,
   Text,
@@ -14,7 +14,20 @@ type MyDocumentProps = {
   produto: Produto;
   index: number
 };
+// utils/pdfTextSanitizer.ts
+export function limparRichTextBubble(texto: string): string {
+  if (!texto) return "";
 
+  return texto
+    // Remove tags tipo [b], [color=...], [highlight=...], [center], etc.
+    .replace(/\[\/?(?:b|color|highlight|center)(?:=[^\]]*)?]/gi, '')
+    // Remove quaisquer outras tags não tratadas (failsafe)
+    .replace(/\[\/?.+?]/g, '')
+    // Normaliza espaços e quebras de linha
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .trim();
+}
 
 export const Card = ({produto, index}: MyDocumentProps)=> (
 <View style={styles.container}>
@@ -27,14 +40,14 @@ export const Card = ({produto, index}: MyDocumentProps)=> (
         Descrição
             </Text>
         <Text style={styles.desctiption } >
-        {produto.descricao_produto_proposta}
+        {limparRichTextBubble(produto.descricao_produto_proposta)}
         </Text>
 
     <View style={styles.footer}>
         <View>
-            <Text>Valor Hunitário</Text>
+            <Text style={styles.valUnit}>Valor Hunitário</Text>
             <View style={styles.containerFooter}>
-            <Text > R${ produto.total_valor } </Text>
+            <Text style={styles.total}> R${ produto.total_valor || "0,00" } </Text>
             </View>
         </View>
     </View>

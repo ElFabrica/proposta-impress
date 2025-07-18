@@ -10,53 +10,11 @@ import {
 } from "@react-pdf/renderer";
 import { PropostaResponse } from "@/app/types/response-proposta-type";
 import { text } from "stream/consumers";
-import { Card } from "@/app/components/card";
+import { Card } from "@/app/components/Card";
+import { Header } from "@/app/components/Header";
 
-// Create styles
-{
-  /*Rodar: npm run dev */
-}
-
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
-    padding: 32,
-    gap: 16,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  productSection: {
-    width: "100%",
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#DFDFDF",
-    borderRadius: 10,
-    gap: 10,
-  },
-  title: {
-    padding: 10,
-    fontWeight: "700",
-    fontSize: 14,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 8,
-    color: "#6B6B6B",
-  },
-  description: {
-    fontSize: 12,
-    fontWeight: "400",
-    color: "#2E2E2E",
-  },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-});
-
-
+import { styles } from "./styles";
+import { Footer } from "@/app/components/Footer";
 
 // Create Document Component
 
@@ -67,54 +25,17 @@ type MyDocumentProps = {
 const MyDocument = ({ document }: MyDocumentProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <View style={{ gap: 4 }} fixed={true}>
         {/* Header */}
-
-        <Text style={styles.subtitle}>
-          Empresa: <Text style={{ fontWeight: "500" }}> COMPANY_NAME </Text>{" "}
-        </Text>
-        <Text style={styles.subtitle}>Aos cuidados de: BEATRIZ BONA</Text>
-      </View>
-      <View style={{ marginVertical: 24, alignItems: "center", gap: 4 }}>
-        <Text style={{ marginVertical: 24, fontWeight: "600" }}>
-          {document.proposta.title}
-        </Text>
+        <View style={styles.container}>
+       <Header document={document}/>
         {document.produtos.map((item, index) => (
 
-          <View key={index} wrap={false}>
+          <View key={index} style={{width:"100%", }}>
             <Card produto={item} index={index+1}  />
           </View>
         ))}
-        <View
-          style={{
-            width: "100%",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            marginTop: 16,
-          }}
-        >
-          <Text style={{ fontSize: 12 }}>TOTAL</Text>
-          <Text> R$ { } </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: "100%",
-            marginTop: 32,
-          }}
-        >
-          <View>
-            <Text>Validade</Text>
-          </View>
-          <View>
-            <Text>Forma</Text>
-          </View>
-          <View>
-            <Text>Criador</Text>
-          </View>
-        </View>
-        <View>{/* Footer */}</View>
+        <Footer document={document}/>
+        <Image source={"https:" + document.empresa.Rodape_imagem} style={styles.footer}  />
       </View>
     </Page>
   </Document>
