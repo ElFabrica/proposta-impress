@@ -2,6 +2,7 @@ export interface PropostaResponse {
   proposta: Proposta;
   produtos: Produto[];
   empresa: Empresa;
+  lead: Lead
 }
 
 export interface Proposta {
@@ -77,3 +78,20 @@ export interface Empresa {
   crm_views_page: (string | null)[];
   Metas_produtos: string[];
 }
+export type Lead = {
+  phone: string; // Ex: '+55 (86) 99920-8959'
+  status_person: string; // ID ou chave relacionada ao status da pessoa
+  empresa: string; // ID da empresa
+  fromMe: boolean;
+  crm: string; // ID do CRM
+  arquivado: boolean;
+  Interessado: boolean;
+  name: string; // Ex: 'Digite nome do cliente'
+  active: boolean;
+  type_lead: string; // Ex: 'Aberto'
+  order: number; // Ex: -2.8779296875
+  acompanhamento_act: string; // Ex: 'Aguardando'
+  "Modified Date": number; // timestamp em milissegundos
+  "Created Date": number; // timestamp em milissegundos
+  "Created By": string; // ID do usuário criador
+};

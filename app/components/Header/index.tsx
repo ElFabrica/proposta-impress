@@ -18,9 +18,9 @@ export const Header = ({ document }: MyDocumentProps) => (
         <Image source={"https:" + document.empresa.cabecalho_Imagem} />
         <View style={styles.container} fixed={true}>
             <Text style={styles.subtitle}>
-                Para: <Text style={{ fontWeight: "500" }}> {document.empresa.Nome_Empresa} </Text>{" "}
+                Para: <Text style={{ fontWeight: "500" }}> {document.lead.name} </Text>{" "}
             </Text>
-            <Text style={styles.subtitle}>Aos cuidados de: BEATRIZ BONA</Text>
+            <Text style={styles.subtitle}>Aos cuidados de: <Text style={[styles.subtitle, {fontWeight: "500"}]}>{document.proposta.Consultor_TXT}</Text></Text>
         </View>
         <View style={{ marginVertical: 0, alignItems: "center", gap: 4 }}>
             <Text style={{ marginVertical: 16, fontWeight: "600" }}>
