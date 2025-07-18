@@ -1,13 +1,8 @@
 import { PropostaResponse, Produto } from "../../types/response-proposta-type";
 import { styles } from "./styles";
 import {
-  Page,
   Text,
   View,
-  Document,
-  StyleSheet,
-  renderToStream,
-  Image,
 } from "@react-pdf/renderer";
  
 type MyDocumentProps = {

@@ -3,14 +3,11 @@ import { styles } from "./styles";
 import {
     Text,
     View,
-    Image,
 } from "@react-pdf/renderer";
 
 type MyDocumentProps = {
     document: PropostaResponse;
 };
-
-
 export const Footer = ({ document }: MyDocumentProps) => (
 
     <View>
