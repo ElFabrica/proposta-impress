@@ -42,6 +42,7 @@ const MyDocument = ({ document }: MyDocumentProps) => (
 );
 
 export async function GET(request: NextRequest) {
+  // const mode = request.nextUrl.searchParams.get("mode");
   const id = request.nextUrl.pathname.split("/").pop();
 
   const response = await fetch(
