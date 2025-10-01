@@ -42,8 +42,11 @@ const MyDocument = ({ document }: MyDocumentProps) => (
 );
 
 export async function GET(request: NextRequest) {
-  // const mode = request.nextUrl.searchParams.get("mode");
+  const mode = request.nextUrl.searchParams.get("mode");
   const id = request.nextUrl.pathname.split("/").pop();
+
+  const version = mode === "teste" ? "version-test/" : ""
+  const baseUrl = `https://nasago.bubbleapps.io/${mode}api/1.1/wf/proposta`
 
   const response = await fetch(
     "https://nasago.bubbleapps.io/version-test/api/1.1/wf/proposta",
